@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="wrap_content" android:layout_width="fill_parent" android:orientation="vertical"
+  android:id="@+id/UffjabenLinearLayout"
+   xmlns:droidfu="http://github.com/droidfu/schema">
+<TextView android:id="@+id/TextView01" android:layout_height="wrap_content" android:textSize="20dip" android:textStyle="bold" android:layout_gravity="center_horizontal" android:layout_width="fill_parent" android:gravity="center_horizontal" android:text="@string/uffjaben_title"></TextView>
+<LinearLayout android:id="@+id/LinearLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingTop="5dip" android:paddingLeft="5dip" android:paddingBottom="5dip">
+ <com.github.droidfu.widgets.WebImageView android:id="@+id/AvatarWebImageView"
+      android:layout_width="48px"
+      android:layout_height="48px" 
+      droidfu:autoLoad="false"
+      />
+
+<LinearLayout android:id="@+id/LinearLayout02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:paddingLeft="10dip"><TextView android:text="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/NameTextView"></TextView>
+<TextView android:text="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/PunkteTextView"></TextView>
+</LinearLayout>
+</LinearLayout>
+
+</LinearLayout>

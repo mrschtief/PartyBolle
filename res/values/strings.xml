@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tweetcancel">verjiss it</string>
+    <string name="tweetmap">von Kartenmitte</string>
+    <string name="tweethere">aktuelle Position</string>
+    <string name="uffjaben_title">PartyBolle's Uffjaben</string>
+    <string name="punkte">BollePunkte: </string>
+    <string name="stammtischinfo">Jehe zum Berliner Android Stammtisch am 27.1.2010 in die c-base und zeig mich ma rum!</string>
+    <string name="stammtisch">Android Stammtisch</string>
+
+    <string name="molleinfo">Koof dir nen Berliner und scann dann den Barcode!</string>
+    <string name="molle">Molle zischen</string>
+
+
+    <string name="playintro">Hier sind deine Uffjaben. Wennde denkst, dass du sie erledigt hast, dann drück mal ruff. Ick schau dann nach ob de och alles richtig gemacht hast.</string>
+    <string name="playHeadline">Bolles Uffjaben</string>
+    <string name="help2">Wenn de uff die Knöppe drückst, werdn die Böppels inne Karte jemalt, oder aktualisiert. Drückste länga druff jehnse wieder wech.</string>
+    <string name="help">Um mitte Böppels wat zu machen, drückste eenmal ruff und dann nochma</string>
+    <string name="twitter_follow">Folgen</string>
+    <string name="twitter_fav">Merken</string>
+    <string name="twitter_web">twitter.com</string>
+    <string name="twitter_reply">Antworten</string>
+    <string name="info">PartyBolle</string>
+    <string name="all">Events</string>
+    <string name="concert">Twitter</string>
+    <string name="location">4Square</string>
+    <string name="party">Party</string>
+    <string name="hello">Hello World, Vincent!</string>
+    <string name="app_name">PartyBolle</string>
+    <string name="preferences">Einstellungen</string>
+
+    <string name="foursquare_checkin">Einchecken</string>
+    <string name="foursquare_addevent">neues Event</string>
+    <string name="foursquare_web">foursquare.com</string>
+
+    <string name="event_web">BARtime.de</string>
+
+    <string name="venues_search_label">Suche</string>
+    <string name="venues_search_hint">z.B. Magnet Club</string>  
+    
+    <!-- FOURSQUARED -->  
+
+</resources>

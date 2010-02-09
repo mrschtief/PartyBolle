@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="wrap_content" android:orientation="vertical" android:layout_width="fill_parent">
+	<LinearLayout android:id="@+id/LinearLayout02" android:layout_height="wrap_content" android:layout_marginTop="5px" android:layout_width="fill_parent">
+		<ImageView android:id="@+id/ImageView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5px" android:layout_marginRight="5px" android:src="@drawable/foursquare"></ImageView>
+		<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_gravity="center_vertical" android:id="@+id/VenueName">
+			
+			<TextView android:text="@+id/foursquare_name" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textSize="14px" android:textStyle="bold" android:id="@+id/FoursquareName" android:paddingRight="5px"></TextView>
+		</LinearLayout>
+</LinearLayout>
+	
+	<TextView android:text="@+id/foursquare_address" android:id="@+id/FoursquareAddress" android:layout_height="wrap_content" android:paddingBottom="5px" android:paddingTop="5px" android:textSize="14px" android:paddingLeft="5px" android:paddingRight="5px" android:textStyle="bold" android:layout_width="fill_parent"></TextView>
+
+	<LinearLayout android:id="@+id/LinearLayout03" android:background="#ffffff" android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="fill_parent">
+
+		<LinearLayout android:id="@+id/FoursquareFavAction" android:background="@android:drawable/list_selector_background" android:layout_height="wrap_content" android:clickable="true" android:hapticFeedbackEnabled="true" android:focusableInTouchMode="false" android:focusable="false" android:layout_width="wrap_content" android:paddingTop="5px">
+			<ImageView android:id="@+id/FoursquareFavActionImageView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingLeft="8px" android:paddingRight="10px" android:src="@android:drawable/btn_star_big_off"></ImageView>
+			<TextView android:id="@+id/FoursquareFavActionTextView" android:layout_width="wrap_content" android:text="@string/twitter_fav" android:textStyle="bold" android:textSize="24px" android:typeface="normal" android:textColor="#000000" android:layout_gravity="center" android:layout_height="wrap_content"></TextView>
+		</LinearLayout>
+
+		
+		<LinearLayout android:id="@+id/FoursquareCheckinAction" android:background="@android:drawable/list_selector_background" android:layout_height="wrap_content" android:clickable="true" android:hapticFeedbackEnabled="true" android:focusableInTouchMode="false" android:focusable="false" android:layout_width="wrap_content">
+			<ImageView android:id="@+id/FoursquareCheckinImageView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_manage"></ImageView>
+			<TextView android:id="@+id/FoursquareCheckinTextView" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="24px" android:typeface="normal" android:layout_gravity="center_vertical" android:textColor="#000000" android:layout_height="wrap_content" android:text="@string/foursquare_checkin"></TextView>
+		</LinearLayout>
+		
+		<LinearLayout android:id="@+id/AddEventAction" android:background="@android:drawable/list_selector_background" android:layout_height="wrap_content" android:clickable="true" android:focusableInTouchMode="false" android:focusable="false" android:layout_width="wrap_content">
+			<ImageView android:id="@+id/AddEventActionImageView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_add"></ImageView>
+			<TextView android:id="@+id/AddEventActionTextView" android:layout_width="wrap_content" android:text="@string/foursquare_addevent" android:textStyle="bold" android:textSize="24px" android:typeface="normal" android:layout_gravity="center_vertical" android:layout_height="wrap_content" android:textColor="#777777"></TextView>
+		</LinearLayout>
+
+		<LinearLayout android:id="@+id/FoursquareWebAction" android:background="@android:drawable/list_selector_background" android:layout_height="wrap_content" android:clickable="true" android:focusableInTouchMode="false" android:focusable="false" android:layout_width="wrap_content">
+			<ImageView android:id="@+id/FoursquareWebActionImageView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_view"></ImageView>
+			<TextView android:id="@+id/FoursquareWebActionTextView" android:layout_width="wrap_content" android:text="@string/foursquare_web" android:textStyle="bold" android:textSize="24px" android:typeface="normal" android:layout_gravity="center_vertical" android:textColor="#000000" android:layout_height="wrap_content" android:paddingRight="5px"></TextView>
+		</LinearLayout>
+
+	</LinearLayout>
+</LinearLayout>

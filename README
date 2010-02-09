@@ -1,0 +1,32 @@
+This is PartyBolle,
+
+Please see the license-gpl-3.0.txt that comes with this package for further 
+license information.
+
+This packages contains code by Stefan Lischke a.k.a. Mister Schtief which 
+is released under the above mentioned GPLv3 license.
+
+This package also contains the following modified code:
+
+* com.github.droidfu 
+Copyright (c) 2009 Matthias Käppler
+Licensed under the Apache License, Version 2.0
+http://github.com/kaeppler/droid-fu
+
+* com.joelapenna.foursquare 
+Copyright 2009 Joe LaPenna
+Licensed under the Apache License, Version 2.0
+http://code.google.com/p/foursquared/
+
+* Winterwell JTwitter
+This code is copyright (c) Winterwell Associates 2008/2009 and (c) ThinkTank Mathematics Ltd, 2007 
+It is released as open-source under the LGPL license.
+http://www.winterwell.com/software/jtwitter.php
+
+* Base64Encoder
+Copyright (C) 2001 Stefan Haustein, Oberhausen (Rhld.), Germany
+License: LGPL
+
+* JSON
+Copyright (c) 2002 JSON.org
+free license

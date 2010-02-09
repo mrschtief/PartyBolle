@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="wrap_content" android:layout_width="fill_parent" android:orientation="vertical" android:paddingBottom="5dip" android:paddingLeft="5dip" android:paddingRight="5dip" android:paddingTop="5dip">
+<EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:lines="4" android:id="@+id/TweetEditText"></EditText>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:id="@+id/CharCountTextView" android:text="140 Zeichen kannste noch"></TextView>
+<LinearLayout android:id="@+id/LinearLayout01" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:paddingTop="5dip"><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TweetHereButton" android:text="@string/tweethere"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TweetMapButton" android:text="@string/tweetmap"></Button>
+</LinearLayout>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:id="@+id/TweetCancelButton" android:text="@string/tweetcancel"></Button>
+</LinearLayout>
