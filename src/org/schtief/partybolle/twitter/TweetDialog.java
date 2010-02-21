@@ -47,7 +47,7 @@ public class TweetDialog extends Dialog implements TextWatcher {
 
 		((Button)findViewById(R.id.TweetHereButton)).setOnClickListener(new View.OnClickListener() {
 			
-			@Override
+			
 			public void onClick(View arg0) {
 				GeoPoint center = partyBolle.mapView.getMapCenter();
 				double lat = center.getLatitudeE6()/1000000.0;
@@ -63,7 +63,7 @@ public class TweetDialog extends Dialog implements TextWatcher {
 		
 		((Button)findViewById(R.id.TweetMapButton)).setOnClickListener(new View.OnClickListener() {
 			
-			@Override
+			
 			public void onClick(View arg0) {
 				GeoPoint center = partyBolle.mapView.getMapCenter();
 				double lat = center.getLatitudeE6()/1000000.0;
@@ -75,7 +75,7 @@ public class TweetDialog extends Dialog implements TextWatcher {
 
 		((Button)findViewById(R.id.TweetCancelButton)).setOnClickListener(new View.OnClickListener() {
 			
-			@Override
+			
 			public void onClick(View arg0) {
 				TweetDialog.this.dismiss();
 			}
@@ -87,16 +87,16 @@ public class TweetDialog extends Dialog implements TextWatcher {
 		this(partyBolle);
 		text.setText(tweet);
 	}
-	@Override
+	
 	public void afterTextChanged(Editable arg0) {
 		
 	}
-	@Override
+	
 	public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 			int arg3) {
 		
 	}
-	@Override
+	
 	public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 		tv.setText((140-arg0.length())+ " Zeichen kannste noch");
 		tv.invalidate();

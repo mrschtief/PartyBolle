@@ -39,7 +39,7 @@ public class EventDialog extends Dialog
 		this.app=app;
 	}
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class EventDialog extends Dialog
 		Button b	=	new Button(app);
 		b.setText("Contentprovider");
 		b.setOnClickListener(new android.view.View.OnClickListener(){
-			@Override
+			
 			public void onClick(View v) {
 //				app.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.tip-berlin.de"+event.getLink()))); 
 			}	

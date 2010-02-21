@@ -47,7 +47,7 @@ public class TwitterDetailDialog extends Dialog {
 		this.status=status;
 	}
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.twitterdialog);
@@ -61,14 +61,14 @@ public class TwitterDetailDialog extends Dialog {
 		((TextView)findViewById(R.id.TweetText)).setText(status.getText());
 
 		findViewById(R.id.TwitterReplyAction).setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				new TweetDialog(partyBolle,"@"+status.getUser().screenName+" ").show();
 			}
 		});
 
 		findViewById(R.id.TwitterFollowerAction).setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				String user	=	status.getUser().getScreenName();
 				TwitterDetailDialog.this.dismiss();
@@ -77,7 +77,7 @@ public class TwitterDetailDialog extends Dialog {
 		});
 
 		findViewById(R.id.TwitterWebAction).setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				String user	=	status.getUser().getScreenName();
 				Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://mobile.twitter.com/"+user));  

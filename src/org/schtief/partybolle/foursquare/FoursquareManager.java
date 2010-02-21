@@ -149,6 +149,7 @@ public class FoursquareManager {
 			foursquare.setCredentials(username, password);
 			if (foursquare.hasLoginAndPassword()) {				
 				Toast.makeText(app,"Foursquare logged in", Toast.LENGTH_LONG).show();
+				inited=true;
 				return true;
 			} else {
 				Toast.makeText(app,"Foursquare login failed!", Toast.LENGTH_LONG).show();

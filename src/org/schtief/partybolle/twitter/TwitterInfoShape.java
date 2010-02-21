@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.schtief.partybolle.InfoShape;
+import org.schtief.partybolle.PartyBolle;
 import org.schtief.twitter.Twitter.Status;
 
 import android.graphics.Canvas;
@@ -42,7 +43,7 @@ public class TwitterInfoShape extends InfoShape{
 		lines	=	super.wrapText(status.text, 47);
 		//check width		
 		Paint p = new Paint();
-		p.setTextSize(12);
+		p.setTextSize(12*PartyBolle.DISPLAY_SCALE);
 		p.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 		for (String line : lines) {
 			int w=0;
@@ -55,7 +56,7 @@ public class TwitterInfoShape extends InfoShape{
 				width=w;
 		}
 		width+=10;
-		height=lines.size()*14+14+20;
+		height=(int)((lines.size()*14+14+20)*PartyBolle.DISPLAY_SCALE);
 	}
 
 	@Override
@@ -64,18 +65,18 @@ public class TwitterInfoShape extends InfoShape{
 		super.draw(c, paint);
 
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(12);
+		paint.setTextSize(12*PartyBolle.DISPLAY_SCALE);
 		paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 	
 		int i=0;
 		for (ListIterator<String> iterator = lines.listIterator(lines.size()); iterator.hasPrevious();)
 		{
 			String line = iterator.previous();
-			c.drawText(line, -(width/2)+5, -origIconHeight-17 -(i*14), paint);			
+			c.drawText(line, -(width/2)+5, -origIconHeight-(17*PartyBolle.DISPLAY_SCALE) -(i*14*PartyBolle.DISPLAY_SCALE), paint);			
 			i++;		
 		}
-		paint.setTextSize(14);
+		paint.setTextSize(14*PartyBolle.DISPLAY_SCALE);
 		paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-		c.drawText(status.user.screenName+" "+df.format(status.createdAt), -(width/2)+5, -origIconHeight-17 -(i*14)-2, paint);
+		c.drawText(status.user.screenName+" "+df.format(status.createdAt), -(width/2)+5, -origIconHeight-(17*PartyBolle.DISPLAY_SCALE) -(i*14*PartyBolle.DISPLAY_SCALE)-2, paint);
 	}
 }

@@ -25,6 +25,7 @@ import java.util.List;
 import org.schtief.partybolle.event.EventManager;
 import org.schtief.partybolle.event.EventOverlay;
 import org.schtief.partybolle.event.EventOverlayItem;
+import org.schtief.partybolle.foursquare.AutoCheckinService;
 import org.schtief.partybolle.foursquare.FoursquareManager;
 import org.schtief.partybolle.foursquare.FoursquareOverlay;
 import org.schtief.partybolle.foursquare.FoursquareOverlayItem;
@@ -60,10 +61,12 @@ import android.preference.PreferenceManager;
 import android.provider.SearchRecentSuggestions;
 import android.provider.MediaStore.Images.Media;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.CheckBox;
@@ -86,6 +89,8 @@ import com.joelapenna.foursquare.types.Venue;
 public class PartyBolle extends MapActivity implements LocationListener {
 	public static final String LOG_TAG	=	"PartyBolle";
 
+	public static float DISPLAY_SCALE	=	1;
+	
 	private Handler	handler	= new Handler();
 
 	EventManager	eventManager	=	null;
@@ -104,6 +109,9 @@ public class PartyBolle extends MapActivity implements LocationListener {
 	private static final int MENU_CHALLENGE		= Menu.FIRST + 7;
 	private static final int MENU_TWITTER		= Menu.FIRST + 8;
 	private static final int MENU_SCREENSHOT	= Menu.FIRST + 9;
+	
+	private static final int MENU_AUTOCHECKIN_START	= Menu.FIRST + 10;
+	private static final int MENU_AUTOCHECKIN_STOP	= Menu.FIRST + 11;
 	
 	private static final int REQUEST_CODE_PREFERENCES = 1;
 
@@ -137,7 +145,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 	private CheckBox help1;
 
 	private CheckBox help2;
-	@Override
+	
 	public void onCreate(Bundle savedInstanceState) {
 		Log.i(LOG_TAG, "onCreate savedInstanceState "+savedInstanceState);
 		if(null!=getIntent()){
@@ -146,6 +154,13 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
+		
+		//breite des screens hole fuer skalierung
+		WindowManager w = getWindowManager(); 
+	    Display d = w.getDefaultDisplay(); 
+	    DISPLAY_SCALE = (float)(d.getWidth()/320.0);
+	    Log.i(LOG_TAG, "Resolution :"+d.getWidth()+" scale: "+DISPLAY_SCALE);
+		
 		
 		this.instance=this;
 
@@ -262,7 +277,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 			help1.setVisibility(View.VISIBLE);
 			help1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				
-				@Override
+				
 				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 					SharedPreferences.Editor editor = preferences.edit();
 					editor.putBoolean("help1", true);
@@ -277,7 +292,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 			help2.setVisibility(View.VISIBLE);
 			help2.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				
-				@Override
+				
 				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 					SharedPreferences.Editor editor = preferences.edit();
 					editor.putBoolean("help2", true);
@@ -294,7 +309,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 
 	/************** ACTIVITY STATE *****************/
 
-	@Override
+	
 	protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
 		Log.i(LOG_TAG, "onRestoreInstanceState "+savedInstanceState );
@@ -303,14 +318,14 @@ public class PartyBolle extends MapActivity implements LocationListener {
 
 
 
-	@Override
+	
 	protected void onSaveInstanceState(Bundle outState)
 	{
 		Log.i(LOG_TAG, "onSaveInstanceState "+outState);
 		super.onSaveInstanceState(outState);
 	}
 
-	@Override
+	
 	protected void onDestroy()
 	{
 		Log.i(LOG_TAG, "onDestroy");
@@ -324,7 +339,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		super.onDestroy();
 	}
 
-	@Override
+	
 	public void onNewIntent(Intent intent)
 	{
 		Log.i(LOG_TAG, "onNewIntent "+intent);
@@ -353,63 +368,63 @@ public class PartyBolle extends MapActivity implements LocationListener {
 
 
 
-	@Override
+	
 	protected void onPause()
 	{
 		Log.i(LOG_TAG, "onPause");
 		super.onPause();
 	}
 
-	@Override
+	
 	protected void onResume()
 	{
 		Log.i(LOG_TAG, "onResume");
 		super.onResume();
 	}
 
-	@Override
+	
 	public void finish()
 	{
 		Log.i(LOG_TAG, "finish");
 		super.finish();
 	}
 
-	@Override
+	
 	public void onLowMemory()
 	{
 		Log.i(LOG_TAG, "onLowMemory");
 		super.onLowMemory();
 	}
 	
-	@Override
+	
 	protected void onPostResume()
 	{
 		Log.i(LOG_TAG, "onPostResume");
 		super.onPostResume();
 	}
 
-	@Override
+	
 	protected void onRestart()
 	{
 		Log.i(LOG_TAG, "onRestart");
 		super.onRestart();
 	}
 
-//	@Override
+//	
 //	public Object on
 //	{
 //		Log.i(LOG_TAG, "onRetainNonConfigurationInstance");
 //		super.onRetainNonConfigurationInstance();
 //	}
 
-	@Override
+	
 	protected void onStart()
 	{
 		Log.i(LOG_TAG, "onStart");
 		super.onStart();
 	}
 
-	@Override
+	
 	public void onConfigurationChanged(Configuration newConfig)
 	{
 		Log.i(LOG_TAG, "onConfigurationChanged");
@@ -437,7 +452,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		//Bolles uffjaben
 		bolleImageButton.setOnClickListener(new OnClickListener() {
 			
-			@Override
+			
 			public void onClick(View arg0) {
 				if(null==preferences.getString("twitter_name_verified", null))			{
 					AlertDialog.Builder builder = new AlertDialog.Builder(PartyBolle.this);
@@ -469,7 +484,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		//favoriten
 		favoriteImageButton.setOnClickListener(new OnClickListener() {
 			
-			@Override
+			
 			public void onClick(View arg0) {
 				showFavorites = !showFavorites;
 				updateFavoriteState();
@@ -481,7 +496,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		//Events
 		eventImageButton.setOnClickListener(new OnClickListener() {
 			
-			@Override
+			
 			public void onClick(View arg0) {
 				eventImageButton.setEnabled(false);
 				findViewById(R.id.EventProgressBar).setVisibility(View.VISIBLE);
@@ -490,7 +505,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		});	
 		eventImageButton.setOnLongClickListener(new OnLongClickListener() {
 			
-			@Override
+			
 			public boolean onLongClick(View arg0) {
 				lastestOverlay=null;
 				eventOverlay.cleanup();
@@ -504,7 +519,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		//Twitter
 		twitterImageButton.setOnClickListener(new OnClickListener() {
 			
-			@Override
+			
 			public void onClick(View arg0) {
 				twitterImageButton.setEnabled(false);
 				findViewById(R.id.TwitterProgressBar).setVisibility(View.VISIBLE);
@@ -513,7 +528,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		});	
 		twitterImageButton.setOnLongClickListener(new OnLongClickListener() {
 			
-			@Override
+			
 			public boolean onLongClick(View arg0) {
 				lastestOverlay=null;
 				twitterOverlay.cleanup();
@@ -526,7 +541,6 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		//Foursquare
 		foursquareImageButton.setOnClickListener(new OnClickListener() {
 			
-			@Override
 			public void onClick(View arg0) {
 				foursquareImageButton.setEnabled(false);
 				findViewById(R.id.FoursquareProgressBar).setVisibility(View.VISIBLE);
@@ -535,7 +549,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		});	
 		foursquareImageButton.setOnLongClickListener(new OnLongClickListener() {
 			
-			@Override
+			
 			public boolean onLongClick(View arg0) {
 				lastestOverlay=null;
 				foursquareOverlay.cleanup();
@@ -569,7 +583,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		// listcontrol
 		ImageView list = (ImageView) findViewById(R.id.listImageView);
 		list.setOnClickListener(new OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				showList();
 			}
@@ -578,7 +592,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		// prev/next controls
 		ImageView prev = (ImageView) findViewById(R.id.prevImageView);
 		prev.setOnClickListener(new OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				Log.i("PartyUmkreis", "prev");
 				prev();
@@ -586,7 +600,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		});
 		ImageView next = (ImageView) findViewById(R.id.nextImageView);
 		next.setOnClickListener(new OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				Log.i("PartyUmkreis", "next");
 				next();
@@ -596,7 +610,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		// own zoomcontrols
 		ImageView zoomIn = (ImageView) findViewById(R.id.zoomInImageView);
 		zoomIn.setOnClickListener(new OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				mapView.getController().zoomIn();
 				Log.d(LOG_TAG, "zoom in "+mapView.getZoomLevel());
@@ -606,7 +620,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		ImageView zoomOut = (ImageView) findViewById(R.id.zoomOutImageView);
 		zoomOut.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View arg0) {
 				mapView.getController().zoomOut();
 				Log.d(LOG_TAG, "zoom out "+mapView.getZoomLevel());
@@ -652,12 +666,12 @@ public class PartyBolle extends MapActivity implements LocationListener {
 			twitterOverlay.next();
 	}
 
-	@Override
+	
 	protected boolean isRouteDisplayed() {
 		return false;
 	}
 
-	@Override
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		menu.add(0, MENU_MY_LOCATION, 0, "Heeme").setIcon(android.R.drawable.ic_menu_mylocation);
@@ -665,9 +679,12 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		menu.add(0, MENU_PREFERENCES, 0, "Einstellungen").setIcon(android.R.drawable.ic_menu_preferences);
 		menu.add(0, MENU_SEARCH, 0, "4Sq. Suche").setIcon(R.drawable.foursquare_32);
 //		menu.add(0, MENU_TWITTER_LIVE, 0, "Twitter Leif").setIcon(android.R.drawable.ic_media_play );
-		menu.add(0, MENU_SCREENSHOT, 0, "Screenshot").setIcon(android.R.drawable.ic_menu_camera);
 		menu.add(0, MENU_CHALLENGE, 0, "Bolles Uffjaben").setIcon(android.R.drawable.ic_menu_info_details);
 		menu.add(0, MENU_TWITTER, 0, "Twittern").setIcon(R.drawable.twitter_32);
+//		if(null==AutoCheckinService.getInstance())
+		menu.add(0, MENU_AUTOCHECKIN_START, 0, "Start AutoCheckin").setIcon(R.drawable.foursquare_32);
+		menu.add(0, MENU_AUTOCHECKIN_STOP, 0, "Stop AutoCheckin").setIcon(R.drawable.foursquare_32);
+		menu.add(0, MENU_SCREENSHOT, 0, "Screenshot").setIcon(android.R.drawable.ic_menu_camera);
 		return true;
 	}
 
@@ -762,6 +779,16 @@ public class PartyBolle extends MapActivity implements LocationListener {
 			}else{	
 				new TweetDialog(this).show();
 			}
+			return true;
+		}
+		case MENU_AUTOCHECKIN_START: {
+			Intent svc = new Intent(this, AutoCheckinService.class);
+			startService(svc);
+			return true;
+		}
+		case MENU_AUTOCHECKIN_STOP: {
+			Intent svc = new Intent(this, AutoCheckinService.class);
+			stopService(svc);
 			return true;
 		}
 
@@ -905,7 +932,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 	}
 
 
-	@Override
+	
 	public void onLocationChanged(Location loc) {
 		this.actualLocation=loc;
 		if(null==this.location){
@@ -921,19 +948,19 @@ public class PartyBolle extends MapActivity implements LocationListener {
 	}
 
 
-	@Override
+	
 	public void onProviderDisabled(java.lang.String arg0) {
 		// TODO warnung		
 	}
 
 
-	@Override
+	
 	public void onProviderEnabled(java.lang.String arg0) {
 		setUpLocationManager();		
 	}
 
 
-	@Override
+	
 	public void onStatusChanged(java.lang.String arg0, int arg1, Bundle arg2) {
 		// TODO wat is dat hier?
 

@@ -2,6 +2,7 @@ package org.schtief.partybolle.event;
 
 
 import org.schtief.partybolle.InfoShape;
+import org.schtief.partybolle.PartyBolle;
 import org.schtief.util.json.JSONObject;
 
 import android.graphics.Canvas;
@@ -33,7 +34,7 @@ public class EventInfoShape extends InfoShape{
 	String location,info;
 
 	public EventInfoShape(JSONObject loc){
-		origIconHeight=42;
+		origIconHeight=(int)(42*PartyBolle.DISPLAY_SCALE);
 		this.info=loc.optJSONArray("e").optJSONObject(0).optString("tit");
 		this.location=loc.optString("n");
 
@@ -41,7 +42,7 @@ public class EventInfoShape extends InfoShape{
 		{
 			int infoWidth=0;
 			Paint p = new Paint();
-			p.setTextSize(12);
+			p.setTextSize(12*PartyBolle.DISPLAY_SCALE);
 			p.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 			float[] widths	=	new float[info.length()];
 			p.getTextWidths(info, widths);
@@ -50,7 +51,7 @@ public class EventInfoShape extends InfoShape{
 			}
 			
 			int locationWidth=0;
-			p.setTextSize(14);
+			p.setTextSize(14*PartyBolle.DISPLAY_SCALE);
 			p.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 			widths	=	new float[location.length()];
 			p.getTextWidths(location, widths);
@@ -60,7 +61,7 @@ public class EventInfoShape extends InfoShape{
 			width=Math.max(infoWidth, locationWidth);
 		}
 		width+=10;
-		height	=	52;
+		height	=	(int)(52*PartyBolle.DISPLAY_SCALE);
 	}
 
 	@Override
@@ -68,13 +69,13 @@ public class EventInfoShape extends InfoShape{
 	{
 		super.draw(c, paint);
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(14);
+		paint.setTextSize(14*PartyBolle.DISPLAY_SCALE);
 		paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 		//TODO wenn nich heute dann datum
-		c.drawText(location, -(width/2)+5, -origIconHeight-37, paint);
-		paint.setTextSize(12);
+		c.drawText(location, -(width/2)+5, -origIconHeight-(37*PartyBolle.DISPLAY_SCALE), paint);
+		paint.setTextSize(12*PartyBolle.DISPLAY_SCALE);
 		paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-		c.drawText(info, -(width/2)+5, -origIconHeight-20, paint);
+		c.drawText(info, -(width/2)+5, -origIconHeight-(20*PartyBolle.DISPLAY_SCALE), paint);
 	}
 	
 }

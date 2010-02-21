@@ -60,7 +60,7 @@ public class PartyBolleUffjaben extends Activity implements LocationListener{
     LocationManager locationManager;
 
 	
-	@Override
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i(LOG_TAG, "onCreate savedInstanceState "+savedInstanceState);
@@ -96,7 +96,7 @@ public class PartyBolleUffjaben extends Activity implements LocationListener{
 
 	}
 
-	@Override
+	
 	public void onLocationChanged(Location loc) {
 		this.location=loc;
 		Log.i(LOG_TAG, "location update "+loc.getLatitude()+" : "+loc.getLongitude()+" : "+loc.getAccuracy());
@@ -172,37 +172,37 @@ public class PartyBolleUffjaben extends Activity implements LocationListener{
 
 	}
 
-	@Override
+	
 	public void onProviderDisabled(String arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void onProviderEnabled(String arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	   @Override
+	   
 	    protected void onDestroy() {
 	        stopListening();
 	        super.onDestroy();
 	    }
 
-	    @Override
+	    
 	    protected void onPause() {
 	        stopListening();
 	        super.onPause();
 	    }
 
-	    @Override
+	    
 	    protected void onResume() {
 	        startListening();
 	        super.onResume();

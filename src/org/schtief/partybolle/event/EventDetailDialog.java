@@ -56,7 +56,7 @@ public class EventDetailDialog extends Dialog {
 		this.eventOverlayItem=eventOverlayItem;
 	}
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.eventdialog);
@@ -70,7 +70,7 @@ public class EventDetailDialog extends Dialog {
 			((TextView)findViewById(R.id.EventLocationAddress)).setText(location.optString("a"));
 			findViewById(R.id.EventFoursquareCheckinAction).setVisibility(View.VISIBLE);
 			findViewById(R.id.EventFoursquareCheckinAction).setOnClickListener(new View.OnClickListener() {
-				@Override
+				
 				public void onClick(View arg0) {
 					PartyBolle.instance.foursquareManager.checkin(location.optString("f"));
 				}
@@ -119,7 +119,7 @@ public class EventDetailDialog extends Dialog {
 		
 
 		findViewById(R.id.EventWebAction).setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				try {
 					Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://www.bartime.de/"+location.getString("l")));
@@ -134,7 +134,7 @@ public class EventDetailDialog extends Dialog {
 		favImage	=	(ImageView)findViewById(R.id.EventFavActionImageView);
 		updateFavorite();
 		findViewById(R.id.EventFavAction).setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				app.favoriteManager.toggleFavorite(eventOverlayItem);
 				updateFavorite();

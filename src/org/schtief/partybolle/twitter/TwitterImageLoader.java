@@ -35,19 +35,20 @@ import com.github.droidfu.imageloader.ImageLoaderHandlerIF;
 public class TwitterImageLoader extends Handler implements ImageLoaderHandlerIF {
 	private TwitterOverlay twitterOverlay;
 	private TwitterOverlayItem twitterOverlayItem;
-
+	private int iconwidth=32;
 	public TwitterImageLoader(TwitterOverlay twitterOverlay,
 			TwitterOverlayItem twitterOverlayItem) {
 		this.twitterOverlay = twitterOverlay;
 		this.twitterOverlayItem	=	twitterOverlayItem;
+		iconwidth= (int)(iconwidth*PartyBolle.DISPLAY_SCALE);
 	}
-	@Override
+	
 	public void handleMessage(Message msg) {
 		if (msg.what == ImageLoader.HANDLER_MESSAGE_ID) {
 			Log.i(PartyBolle.LOG_TAG, "loaded image ");
 			Bundle data = msg.getData();
 			Bitmap bitmap = data.getParcelable(ImageLoader.BITMAP_EXTRA);
-			twitterOverlayItem.setMarker(twitterOverlay.bound(resizeImage(bitmap, 28, 28)));
+			twitterOverlayItem.setMarker(twitterOverlay.bound(resizeImage(bitmap, iconwidth,iconwidth)));
 			PartyBolle.instance.mapView.invalidate();
 		}
 	}
@@ -82,7 +83,7 @@ public class TwitterImageLoader extends Handler implements ImageLoaderHandlerIF 
 		return new BitmapDrawable(resizedBitmap);
 
 	}
-	@Override
+	
 	public Handler getHandler() {
 		return this;
 	}

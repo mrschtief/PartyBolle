@@ -60,7 +60,7 @@ public class FoursquareDetailDialog extends Dialog {
 		this.overlayItem=overlayItem;
 	}
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.foursquaredialog);
@@ -68,7 +68,7 @@ public class FoursquareDetailDialog extends Dialog {
 		((TextView)findViewById(R.id.FoursquareAddress)).setText(venue.getAddress());
 
 		findViewById(R.id.FoursquareCheckinAction).setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				PartyBolle.instance.foursquareManager.checkin(venue.getId());
 //                Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://m.foursquare.com/checkin?vid="+venue.getId()));//app, ShoutActivity.class);
@@ -77,7 +77,7 @@ public class FoursquareDetailDialog extends Dialog {
 		});
 
 		findViewById(R.id.AddEventAction).setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 				builder.setMessage("Alder Events kannste erst in der beta Version hinzufügen!")
@@ -94,7 +94,7 @@ public class FoursquareDetailDialog extends Dialog {
 
 		
 		findViewById(R.id.FoursquareWebAction).setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://foursquare.com/venue/"+venue.getId()));  
 				getContext().startActivity(viewIntent);    
@@ -104,7 +104,7 @@ public class FoursquareDetailDialog extends Dialog {
 		favImage	=	(ImageView)findViewById(R.id.FoursquareFavActionImageView);
 		updateFavorite();
 		findViewById(R.id.FoursquareFavAction).setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View arg0) {
 				app.favoriteManager.toggleFavorite(overlayItem);
 				updateFavorite();

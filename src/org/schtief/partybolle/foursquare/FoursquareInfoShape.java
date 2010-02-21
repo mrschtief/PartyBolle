@@ -1,6 +1,7 @@
 package org.schtief.partybolle.foursquare;
 
 import org.schtief.partybolle.InfoShape;
+import org.schtief.partybolle.PartyBolle;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -33,7 +34,7 @@ public class FoursquareInfoShape extends InfoShape{
 	String location,info;
 
 	public FoursquareInfoShape(Venue venue) {
-		origIconHeight=32;
+		origIconHeight=(int)(32*PartyBolle.DISPLAY_SCALE);
 		this.info=venue.getAddress();
 		this.location=venue.getName();
 
@@ -41,7 +42,7 @@ public class FoursquareInfoShape extends InfoShape{
 		Paint p = new Paint();
 		{
 			int infoWidth=0;
-			p.setTextSize(12);
+			p.setTextSize(12*PartyBolle.DISPLAY_SCALE);
 			p.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 			float[] widths	=	new float[info.length()];
 			p.getTextWidths(info, widths);
@@ -50,7 +51,7 @@ public class FoursquareInfoShape extends InfoShape{
 			}
 
 			int locationWidth=0;
-			p.setTextSize(14);
+			p.setTextSize(14*PartyBolle.DISPLAY_SCALE);
 			p.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 			widths	=	new float[location.length()];
 			p.getTextWidths(location, widths);
@@ -59,8 +60,8 @@ public class FoursquareInfoShape extends InfoShape{
 			}
 			width=Math.max(infoWidth, locationWidth);
 		}
-		width+=10;
-		height	=	52;
+		width+=10*PartyBolle.DISPLAY_SCALE;
+		height	=	(int)(52*PartyBolle.DISPLAY_SCALE);
 	}
 
 	@Override
@@ -68,13 +69,13 @@ public class FoursquareInfoShape extends InfoShape{
 	{
 		super.draw(c, paint);
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(14);
+		paint.setTextSize(14*PartyBolle.DISPLAY_SCALE);
 		paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 		//TODO wenn nich heute dann datum
-		c.drawText(location, -(width/2)+5, -origIconHeight-37, paint);
-		paint.setTextSize(12);
+		c.drawText(location, -(width/2)+5, -origIconHeight-(37*PartyBolle.DISPLAY_SCALE), paint);
+		paint.setTextSize(12*PartyBolle.DISPLAY_SCALE);
 		paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-		c.drawText(info, -(width/2)+5, -origIconHeight-20, paint);
+		c.drawText(info, -(width/2)+5, -origIconHeight-(20*PartyBolle.DISPLAY_SCALE), paint);
 	}
 	
 }

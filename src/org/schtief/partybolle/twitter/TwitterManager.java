@@ -94,7 +94,7 @@ public class TwitterManager{
 			this.lon = lon;
 		}
 
-		@Override
+		
 		public void run() {
 			try{
 			final List<Twitter.Status> tweets	=	twitter.search(lat,lon,1,100);
@@ -139,7 +139,7 @@ public class TwitterManager{
 			this.lon=lon;
 		}
 
-		@Override
+		
 		public void run() {
 			try{
 				Log.i(PartyBolle.LOG_TAG," send tweet "+status+" "+lat+":"+lon);
@@ -174,7 +174,7 @@ public class TwitterManager{
 			this.dialog=dialog;
 		}
 
-		@Override
+		
 		public void run() {
 			try{
 				twitter.follow(user);
@@ -196,7 +196,7 @@ public class TwitterManager{
 		{
 			this.dialog=dialog;
 		}
-		@Override
+		
 		public void run() {
 			try{
 				twitter.follow("partybolle");
@@ -221,7 +221,7 @@ public class TwitterManager{
 
 				handler.post(new Runnable() {
 					
-					@Override
+					
 					public void run()
 					{
 						AlertDialog.Builder builder = new AlertDialog.Builder(TwitterManager.this.app);
