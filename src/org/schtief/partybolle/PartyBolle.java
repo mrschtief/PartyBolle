@@ -25,6 +25,7 @@ import java.util.List;
 import org.schtief.partybolle.event.EventManager;
 import org.schtief.partybolle.event.EventOverlay;
 import org.schtief.partybolle.event.EventOverlayItem;
+import org.schtief.partybolle.foursquare.AutoCheckinActivity;
 import org.schtief.partybolle.foursquare.AutoCheckinService;
 import org.schtief.partybolle.foursquare.FoursquareManager;
 import org.schtief.partybolle.foursquare.FoursquareOverlay;
@@ -110,8 +111,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 	private static final int MENU_TWITTER		= Menu.FIRST + 8;
 	private static final int MENU_SCREENSHOT	= Menu.FIRST + 9;
 	
-	private static final int MENU_AUTOCHECKIN_START	= Menu.FIRST + 10;
-	private static final int MENU_AUTOCHECKIN_STOP	= Menu.FIRST + 11;
+	private static final int MENU_AUTOCHECKIN	= Menu.FIRST + 10;
 	
 	private static final int REQUEST_CODE_PREFERENCES = 1;
 
@@ -334,7 +334,8 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		editor.putInt("my_location_lon", mapView.getMapCenter().getLongitudeE6());
 		editor.commit();	
 
-		favoriteManager.saveFavorites();
+		//jedes mal wenn was dazukommt
+//		favoriteManager.saveFavorites();
 
 		super.onDestroy();
 	}
@@ -682,8 +683,7 @@ public class PartyBolle extends MapActivity implements LocationListener {
 		menu.add(0, MENU_CHALLENGE, 0, "Bolles Uffjaben").setIcon(android.R.drawable.ic_menu_info_details);
 		menu.add(0, MENU_TWITTER, 0, "Twittern").setIcon(R.drawable.twitter_32);
 //		if(null==AutoCheckinService.getInstance())
-		menu.add(0, MENU_AUTOCHECKIN_START, 0, "Start AutoCheckin").setIcon(R.drawable.foursquare_32);
-		menu.add(0, MENU_AUTOCHECKIN_STOP, 0, "Stop AutoCheckin").setIcon(R.drawable.foursquare_32);
+		menu.add(0, MENU_AUTOCHECKIN, 0, "AutoCheckin Service").setIcon(R.drawable.foursquare_32);
 		menu.add(0, MENU_SCREENSHOT, 0, "Screenshot").setIcon(android.R.drawable.ic_menu_camera);
 		return true;
 	}
@@ -781,17 +781,11 @@ public class PartyBolle extends MapActivity implements LocationListener {
 			}
 			return true;
 		}
-		case MENU_AUTOCHECKIN_START: {
-			Intent svc = new Intent(this, AutoCheckinService.class);
-			startService(svc);
-			return true;
+		case MENU_AUTOCHECKIN: {
+			Intent intent = new Intent(this, AutoCheckinActivity.class);
+			 PartyBolle.this.startActivity(intent);
+			 return true;
 		}
-		case MENU_AUTOCHECKIN_STOP: {
-			Intent svc = new Intent(this, AutoCheckinService.class);
-			stopService(svc);
-			return true;
-		}
-
 		}
 
 		return super.onOptionsItemSelected(item);

@@ -25,11 +25,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.schtief.partybolle.InfoActivity;
 import org.schtief.partybolle.PartyBolle;
+import org.schtief.partybolle.R;
 import org.schtief.util.json.JSONArray;
 import org.schtief.util.json.JSONObject;
 import org.schtief.util.json.JSONTokener;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -69,10 +74,24 @@ public class AutoCheckinService extends Service implements LocationListener{
 	private Foursquare foursquare;
 	
 	private List<Venue> venues;
+	private List<Checkin> checkins;
 	private long lastCheckin=0;
 	private Venue lastVenue;
 
 	private boolean inited;
+	NotificationManager notificationManager;
+	Notification notification;
+	
+	private int notificationId=1;
+	
+	public class Checkin{
+		public Venue venue;
+		public CheckinResult checkinResult;
+		public Checkin(Venue lastVenue, CheckinResult checkinResult2) {
+			venue=lastVenue;
+			checkinResult=checkinResult2;
+		}
+	}
 	
 	public static synchronized AutoCheckinService getInstance()
 	{
@@ -85,8 +104,8 @@ public class AutoCheckinService extends Service implements LocationListener{
 		instance	=	this;
 		foursquare = new Foursquare(Foursquare.createHttpApi(
 				"api.foursquare.com", false));
-		venues=new ArrayList<Venue>();
-		loadFavorites();
+		venues		=	new ArrayList<Venue>();
+		checkins	=	new ArrayList<Checkin>();
 	}
 	
 	/** not using ipc... dont care about this method */
@@ -97,12 +116,18 @@ public class AutoCheckinService extends Service implements LocationListener{
 	@Override
 	public void onStart(Intent intent,int i) {
 		super.onStart(intent, i);
-		log(Log.INFO, "PartyBolle AutoCheckinService started");
+		if(state==STATE_RUNNING){
+			log(Log.INFO, "PartyBolle AutoCheckinService looft schon");
+			return;
+		}
+		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		// init the service here
 		_startService();
 		state=STATE_RUNNING;
 		started=Calendar.getInstance();
 		started.add(Calendar.HOUR, 1);
+		log(Log.INFO, "PartyBolle AutoCheckinService jestartet");
+		loadFavorites();
 	}
 
 	@Override
@@ -124,11 +149,23 @@ public class AutoCheckinService extends Service implements LocationListener{
 		this.myLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
 				MINIMUM_TIME_BETWEEN_UPDATE, MINIMUM_DISTANCECHANGE_FOR_UPDATE,
 				this);
+		
+		//static notification
+		Intent notificationIntent = new Intent(this,AutoCheckinActivity.class);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+		// the next two lines initialize the Notification, using the configurations above
+		notification = new Notification(R.drawable.bolle_25, "PartyBolle Service", System.currentTimeMillis());
+		notification.setLatestEventInfo(getApplicationContext(), "PartyBolle Service", "Klick Stop oderInfos", contentIntent);	
+		notification.flags |= Notification.FLAG_NO_CLEAR;
+		notification.flags |= Notification.FLAG_ONGOING_EVENT;
+		notificationManager.notify(1, notification);
 	}
 
 	private void _shutdownService() {
 		this.myLocationManager.removeUpdates(this);
-		log(Log.INFO,"PartyBolle AutoCheckinService stopped");
+		log(Log.INFO,"PartyBolle AutoCheckinService jestopt");
+		notificationManager.cancel(1);
 	}
 
 	private void log(int level, String message)
@@ -171,11 +208,39 @@ public class AutoCheckinService extends Service implements LocationListener{
 				final CheckinResult checkinResult	=	foursquare.checkin(minVenue.getId(), null,LocationUtils.createFoursquareLocation(location), null, false, false);
 				lastVenue	=	minVenue;
 				lastCheckin	=	System.currentTimeMillis();
+				Checkin c	=	new Checkin(lastVenue,checkinResult);
+				checkins.add(0,c);
 				log(Log.INFO, "PartyBolle checkin: "+checkinResult.getMessage());
+				notifyCheckin(c);
 			} catch (Exception e) {
+				CheckinResult checkinResult = new CheckinResult();
+				checkinResult.setMessage("PartyBolle Could not Checkin "+e.getMessage());
+				Checkin c	=	new Checkin(lastVenue,checkinResult);
+				checkins.add(0,c);
+				notifyCheckin(c);
 				log(Log.ERROR,"PartyBolle Could not Checkin "+e.getMessage());
 			}	
 		}
+	}
+
+	private void notifyCheckin(Checkin checkin) {
+		int icon = R.drawable.foursquare_28;        // icon from resources
+		CharSequence tickerText = checkin.venue.getName();              // ticker-text
+		long when = System.currentTimeMillis();         // notification time
+		Context context = getApplicationContext();      // application Context
+		CharSequence contentTitle = "PartyBolle AutoCheckin";  // expanded message title
+		CharSequence contentText = checkin.checkinResult.getMessage();
+
+		notificationId++;
+		 
+		Intent notificationIntent = new Intent(this,AutoCheckinActivity.class);
+		notificationIntent.putExtra(AutoCheckinActivity.EXTRA_NOTIFICATION_ID, notificationId);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+		// the next two lines initialize the Notification, using the configurations above
+		Notification notification = new Notification(icon, tickerText, when);
+		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);	
+		notificationManager.notify(notificationId, notification);
 	}
 
 	public void onProviderDisabled(String provider) {
@@ -196,6 +261,7 @@ public class AutoCheckinService extends Service implements LocationListener{
 
 		@Override
 		public void run() {
+			venues.clear();
 			loadFavs();
 		}
 	}
@@ -230,10 +296,9 @@ public class AutoCheckinService extends Service implements LocationListener{
 					}
 				}
 			}
-		}catch(FileNotFoundException e){
-			log(Log.ERROR,"coud not load favorites "+e.getMessage());
 		} catch (Exception e) {
-			log(Log.ERROR,"coud not load favorites "+e.getMessage());
+			Log.e(LOG_TAG, "coud not load favorites ",e);
+			log(Log.ERROR,"coud not load favorites "+e.getClass().getName()+":"+e.getMessage());
 		}
 	}
 
@@ -244,20 +309,24 @@ public class AutoCheckinService extends Service implements LocationListener{
 		String password = preferences.getString("foursquare_password", "");
 		if(null==username || username.length()==0 ||null==password|| password.length()==0)
 		{
-			log(Log.INFO,"PartyBolle foursquare not configured");
+			log(Log.INFO,"PartyBolle foursquare nich konfijuriert");
 			return false;
 		}
 		else
 		{
 			foursquare.setCredentials(username, password);
 			if (foursquare.hasLoginAndPassword()) {				
-				log(Log.INFO,"PartyBolle logged in");
+				log(Log.INFO,"PartyBolle injeloggt");
 				inited=true;
 				return true;
 			} else {
-				log(Log.INFO,"PartyBolle login failed");
+				log(Log.INFO,"PartyBolle login jefailed");
 				return false;
 			}
 		}
+	}
+
+	public List<Checkin> getCheckins() {
+		return checkins;
 	}
 }

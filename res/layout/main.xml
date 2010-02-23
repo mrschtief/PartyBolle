@@ -6,7 +6,7 @@
 <com.google.android.maps.MapView
 			android:id="@+id/mapview" android:layout_width="fill_parent"
 			android:layout_height="fill_parent" android:clickable="true"
-			android:apiKey="" />
+			android:apiKey="0bLS0H9J6frorAVrAt19gQ6dBF89GIMvqVs6hDg" />
 					<LinearLayout android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:id="@+id/eventview" 
 		android:orientation="horizontal" 	android:layout_alignTop="@id/mapview"

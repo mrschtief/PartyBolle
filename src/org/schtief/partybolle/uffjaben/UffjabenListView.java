@@ -27,9 +27,8 @@ import android.widget.ListView;
 
 public class UffjabenListView extends ListView
 {
-	private static String		LOG_TAG									= "TransactionListView";
-	public static final int MENU_EDIT_TRANSACTION		=	1001;
-	public static final int MENU_DELETE_TRANSACTION	=	1002;
+	private static String		LOG_TAG									= "PBUffjaben";
+
 	UffjabenListAdapter	listAdapter							= null;
 	private PartyBolleUffjaben app;
 

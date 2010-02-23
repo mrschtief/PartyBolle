@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="autocheckinheadline">PartyBolle AutoCheckin Service</string>
+    <string name="reloadfavs">Reload Favs</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
     <string name="tweetcancel">verjiss it</string>
     <string name="tweetmap">von Kartenmitte</string>
     <string name="tweethere">aktuelle Position</string>
@@ -27,6 +31,8 @@
     <string name="party">Party</string>
     <string name="hello">Hello World, Vincent!</string>
     <string name="app_name">PartyBolle</string>
+    <string name="app_name_uffjaben">PartyBolle Uffjaben</string>
+    <string name="app_name_autocheckin">PartyBolle AutoCheckin</string>
     <string name="preferences">Einstellungen</string>
 
     <string name="foursquare_checkin">Einchecken</string>
@@ -40,4 +46,5 @@
     
     <!-- FOURSQUARED -->  
 
+<string name="notification_text">PartyBolle Notification Text</string>
 </resources>

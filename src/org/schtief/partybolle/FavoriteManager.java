@@ -129,7 +129,19 @@ public class FavoriteManager {
 		}
 	}
 
+	private class SaveFavoritesThread extends Thread {
+
+		@Override
+		public void run() {
+			saveFavs();
+		}
+	}
+	
 	public void saveFavorites() {
+		new SaveFavoritesThread().start();
+	}
+	
+	public void saveFavs() {
 //		if(!loaded){
 //			Log.i(PartyBolle.LOG_TAG,"did not save favorites !loaded");
 //			return;
@@ -179,5 +191,6 @@ public class FavoriteManager {
 			favoriteOverlay.addPartyBolleOverlayItem(overlayItem);
 		}
 		app.mapView.invalidate();
+		saveFavorites();
 	}
 }
